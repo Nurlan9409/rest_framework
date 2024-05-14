@@ -3,20 +3,28 @@ from django.db import models
 class Artist(models.Model):
     name = models.CharField(max_length=100)
     image = models.URLField()
-    last_updated = models.DateTimeField(auto_now=True)
+    listened = models.PositiveBigIntegerField(default=0)
     create_date = models.DateTimeField(auto_now_add=True)
+    last_update=models.DateTimeField(auto_now=True)
 
 
 class Album(models.Model):
-    title = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     image = models.URLField()
-    last_updated = models.DateTimeField(auto_now=True)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    watched = models.PositiveBigIntegerField(default=0)
     create_date = models.DateTimeField(auto_now_add=True)
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE,null=True)
+    last_update=models.DateTimeField(auto_now=True)
 
 class Song(models.Model):
-    title = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     image = models.URLField()
-    album = models.ForeignKey(Album, on_delete=models.CASCADE,null=True)
-    last_updated = models.DateTimeField(auto_now=True)
+    album = models.ForeignKey(Album, on_delete=models.CASCADE)
+    download = models.PositiveSmallIntegerField(default=0)
     create_date = models.DateTimeField(auto_now_add=True)
+    last_update=models.DateTimeField(auto_now=True)
+
+
+
+
+

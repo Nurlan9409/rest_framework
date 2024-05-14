@@ -4,19 +4,22 @@ from .models import Artist,Album,Song
 class ArtistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Artist
-        fields = ("name","image","last_updated")
+        fields = '__all__'
 
 
 class AlbumSerializer(serializers.ModelSerializer):
     artist = ArtistSerializer(read_only=True)
 
+
     class Meta:
         model = Album
-        fields = ("title","image","artist","last_updated")
+        fields = '__all__'
 
 
 class SongSerializer(serializers.ModelSerializer):
     album = AlbumSerializer(read_only=True)
+
     class Meta:
         model = Song
-        fields = ("title","image","album")
+        fields = '__all__'
+

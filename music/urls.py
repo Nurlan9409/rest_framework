@@ -1,14 +1,16 @@
-from django.urls import path,include
-from .views import LandingPageAPIView, ArtistListAPIView,AlbumlAPIViewSet,SonglAPIViewSet
 from rest_framework.routers import DefaultRouter
+from django.urls import path,include
+from .views import ArtisAPIViewSet,AlbumAPIViewSet,SongAPIViewSet
+from rest_framework.authtoken import views
 router = DefaultRouter()
-router.register("albums",viewset=AlbumlAPIViewSet)
-router.register("songs",viewset=SonglAPIViewSet)
+router.register('artist',ArtisAPIViewSet)
+router.register('album',AlbumAPIViewSet)
+router.register('song',SongAPIViewSet)
 
-urlpatterns =[
-    path('landing/', LandingPageAPIView.as_view(), name='landing'),
-    path('artists/', ArtistListAPIView.as_view(), name='artists'),
-    path("", include(router.urls)),
-    path("", include(router.urls)),
+urlpatterns = [
+    path('',include(router.urls)),
+    path('',include(router.urls)),
+    path('',include(router.urls)),
+    path('auth/',views.obtain_auth_token),
 
 ]
